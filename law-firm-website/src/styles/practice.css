@@ -1,0 +1,109 @@
+.practice-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #8B0000; 
+  text-align: center;
+  margin-bottom: 30px; 
+  margin-top: 10vh; 
+}
+
+.practice-container {
+  display: flex;
+  flex-direction: column; 
+  width: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+  background-image: url('/public/images/practice.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  min-height: 100vh;
+  align-items: center;
+}
+
+.practice-content {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: space-between; 
+  margin-top: 10vh;
+}
+
+.practice-list {
+  width: 30%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.practice-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.practice-list li {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 15px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.practice-list li:hover,
+.practice-list li.active {
+  background: black;
+}
+
+.practice-text {
+  width: 65%; 
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  border-radius: 5px;
+}
+
+.practice-text h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.practice-text p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .practice-content {
+    flex-direction: column-reverse; 
+    align-items: center;
+  }
+
+  .practice-list {
+    width: 100%;
+    text-align: center;
+  }
+
+  .practice-list ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .practice-list li {
+    width: 100%; 
+    padding: 10px;
+  }
+
+  .practice-text {
+    width: 100%;
+    text-align: center;
+  }
+}

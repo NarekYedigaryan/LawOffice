@@ -1,0 +1,33 @@
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+
+
+
+
+/* Individual section backgrounds */
+#home {
+    background: #f4f4f4;
+}
+
+#professionals {
+    background: #999;
+}
+/* 
+#news {
+    background: #777;
+} */
+
+#gallery {
+    background: #555;
+}
+
+#contact {
+    background: #333;
+    color: white;
+}
