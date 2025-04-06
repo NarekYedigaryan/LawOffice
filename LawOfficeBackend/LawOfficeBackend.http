@@ -1,0 +1,6 @@
+@LawOfficeBackend_HostAddress = http://localhost:5171
+
+GET {{LawOfficeBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
