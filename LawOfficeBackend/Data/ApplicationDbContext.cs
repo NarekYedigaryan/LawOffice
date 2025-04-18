@@ -12,6 +12,7 @@ namespace LawOfficeBackend.Data
         }
 
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<User> Users { get; set; } // Add this line
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,11 @@ namespace LawOfficeBackend.Data
             modelBuilder.Entity<Contact>()
                 .Property(c => c.IsRead)
                 .HasDefaultValue(false);
+
+            // Configure User entity if needed
+            modelBuilder.Entity<User>()
+                .Property(u => u.CreatedAt)
+                .HasDefaultValueSql("GETUTCDATE()");
         }
     }
 }

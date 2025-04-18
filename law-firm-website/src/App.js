@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useRef, useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
@@ -9,92 +9,124 @@ import News from "./components/News";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import AllNews from "./components/AllNews";
+import Login from "./components/Login";
+import AdminDashboard from "./components/AdminDashboard";
 import "./styles.css";
 
 function App() {
-  // Create a ref for the News section
+  const [auth, setAuth] = useState({
+    isAuthenticated: false,
+    user: null
+  });
   const newsSectionRef = useRef(null);
+  const location = useLocation();
 
-  // Function to scroll to the News section
+  // Check for existing token on initial load
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const userData = localStorage.getItem("user");
+    
+    if (token && userData) {
+      setAuth({
+        isAuthenticated: true,
+        user: JSON.parse(userData)
+      });
+    }
+  }, []);
+
   const scrollToNewsSection = () => {
     if (newsSectionRef.current) {
       newsSectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  // Check if current route is an admin route
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+    setAuth({
+      isAuthenticated: false,
+      user: null
+    });
+  };
+
   return (
-    <Router>
-      <Navbar />
+    <>
+      {/* Hide Navbar for all admin routes */}
+      {!isAdminRoute && <Navbar auth={auth} setAuth={setAuth} />}
+
       <Routes>
-        {/* Static Routes */}
         <Route
           path="/"
           element={
             <>
-              <section id="HOME">
-                <Home />
-              </section>
-              <section id="ABOUT US">
-                <About />
-              </section>
-              <section id="AREAS OF PRACTICE">
-                <PracticeAreas />
-              </section>
-              <section id="OUR PROFESSIONALS">
-                <Professionals />
-              </section>
-              {/* News Section with ref */}
-              <section id="NEWS & ARTICLES" ref={newsSectionRef}>
-                <News />
-              </section>
-              <section id="GALLERY">
-                <Gallery />
-              </section>
-              <section id="CONTACT US">
-                <Contact />
-              </section>
+              <section id="HOME"><Home /></section>
+              <section id="ABOUT US"><About /></section>
+              <section id="AREAS OF PRACTICE"><PracticeAreas /></section>
+              <section id="OUR PROFESSIONALS"><Professionals /></section>
+              <section id="NEWS & ARTICLES" ref={newsSectionRef}><News /></section>
+              <section id="GALLERY"><Gallery /></section>
+              <section id="CONTACT US"><Contact /></section>
             </>
           }
         />
 
-        {/* News Route */}
         <Route
           path="/news"
           element={
             <>
-              <section id="HOME">
-                <Home />
-              </section>
-              <section id="ABOUT US">
-                <About />
-              </section>
-              <section id="AREAS OF PRACTICE">
-                <PracticeAreas />
-              </section>
-              <section id="OUR PROFESSIONALS">
-                <Professionals />
-              </section>
-              <section id="NEWS & ARTICLES" ref={newsSectionRef}>
-                <News />
-              </section>
-              <section id="GALLERY">
-                <Gallery />
-              </section>
-              <section id="CONTACT US">
-                <Contact />
-              </section>
+              <section id="HOME"><Home /></section>
+              <section id="ABOUT US"><About /></section>
+              <section id="AREAS OF PRACTICE"><PracticeAreas /></section>
+              <section id="OUR PROFESSIONALS"><Professionals /></section>
+              <section id="NEWS & ARTICLES" ref={newsSectionRef}><News /></section>
+              <section id="GALLERY"><Gallery /></section>
+              <section id="CONTACT US"><Contact /></section>
             </>
           }
         />
 
-        {/* More news section */}
         <Route
           path="/more-news"
           element={<AllNews scrollToNewsSection={scrollToNewsSection} />}
         />
-      </Routes> 
-    </Router>
+
+        <Route
+          path="/admin/login"
+          element={
+            auth.isAuthenticated ? (
+              <Navigate to="/admin/dashboard" />
+            ) : (
+              <Login setAuth={setAuth} />
+            )
+          }
+        />
+
+        <Route
+          path="/admin/dashboard"
+          element={
+            auth.isAuthenticated ? (
+              <AdminDashboard user={auth.user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/admin/login" />
+            )
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
   );
 }
 
-export default App;
+export default function Root() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}

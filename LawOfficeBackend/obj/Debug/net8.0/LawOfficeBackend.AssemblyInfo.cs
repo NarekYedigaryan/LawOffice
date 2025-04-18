@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LawOfficeBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbe8a948d7ee3325fa1f6a78c7e62807642489fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b02867bc77850233d6cf6bb0b08e3e86a0d7d7b")]
 [assembly: System.Reflection.AssemblyProductAttribute("LawOfficeBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LawOfficeBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
