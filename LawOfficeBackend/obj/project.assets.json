@@ -4507,11 +4507,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\Programming\\LawOfficeBackend\\LawOfficeBackend.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\Programming\\LawOffice\\LawOfficeBackend\\LawOfficeBackend.csproj",
       "projectName": "LawOfficeBackend",
-      "projectPath": "C:\\Users\\User\\Desktop\\Programming\\LawOfficeBackend\\LawOfficeBackend.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\Programming\\LawOffice\\LawOfficeBackend\\LawOfficeBackend.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\Programming\\LawOfficeBackend\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\Programming\\LawOffice\\LawOfficeBackend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
