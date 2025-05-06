@@ -8,8 +8,6 @@ import {
   FiMessageSquare, 
   FiAlertCircle, 
   FiLogOut, 
-  FiChevronDown, 
-  FiChevronUp,
   FiPlusCircle 
 } from "react-icons/fi";
 
