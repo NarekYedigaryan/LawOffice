@@ -1,23 +1,31 @@
-import React, { useEffect, useState } from "react";
+// MoreNews.js
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../styles/AllNews.css";
-import NewsCard from "./NewsCard"; 
+import "../styles/News.css";
 import ReadMore from "./ReadMore";  
-import { articles } from "./articles";
+import NewsCard from "./NewsCard";  
+import { getNews } from "./newsService";
 
-const AllNews = () => {
+const MoreNews = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const savedPosition = sessionStorage.getItem("scrollPosition");
-    if (savedPosition) {
-      window.scrollTo(0, savedPosition);
-    }
-
-    return () => {
-      sessionStorage.setItem("scrollPosition", window.scrollY);
+    const fetchAllNews = async () => {
+      try {
+        const data = await getNews();
+        setArticles(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
+
+    fetchAllNews();
   }, []);
 
   const openModal = (article) => {
@@ -30,32 +38,22 @@ const AllNews = () => {
     setSelectedArticle(null);
   };
 
-  return (
-    <div className="AllNews">
-      <div className="back-button-container">
-        <Link
-          to="/news"
-          className="back-button"
-          onClick={() => {
-            const savedPosition = sessionStorage.getItem("scrollPosition");
-            if (savedPosition) {
-              setTimeout(() => {
-                window.scrollTo(0, savedPosition);
-              }, 0);
-            }
-          }}
-        >
-          ← Back to News
-        </Link>
-      </div>
+  if (loading) return <div className="News">Loading all news...</div>;
+  if (error) return <div className="News">Error: {error}</div>;
 
-      <h2>All News</h2>
+  return (
+    <div className="News">
+      <h2>ALL NEWS & ARTICLES</h2>
       <div className="news-container">
-        {articles.map((article) => (
+        {articles.map((article) => ( 
           <NewsCard
             key={article.id}
-            article={article}
-            onReadMoreClick={openModal}  
+            article={{
+              ...article,
+              image: article.imageUrl,
+              fullText: article.content
+            }}
+            onReadMoreClick={openModal}
           />
         ))}
       </div>
@@ -67,4 +65,4 @@ const AllNews = () => {
   );
 };
 
-export default AllNews;
+export default MoreNews;

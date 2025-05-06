@@ -3,24 +3,20 @@ import "../styles/ReadMore.css";
 
 const ReadMore = ({ selectedArticle, closeModal }) => {
   return (
-    <div className="modal-overlay" onClick={closeModal}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {/* Close button */}
-        <button className="close-modal" onClick={closeModal}>
-          ✖
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <button className="close-button" onClick={closeModal}>
+          &times;
         </button>
-        
-        <div className="modal-left">
-          <p className="modal-title">{selectedArticle.title}</p>
-          <img
-            src={selectedArticle.image}
-            alt={selectedArticle.title}
-            className="modal-image"
-          />
-          <p className="modal-date">{selectedArticle.date}</p>
-        </div>
-        <div className="modal-right">
-          <p className="modal-description">{selectedArticle.fullText}</p>
+        <img 
+          src={selectedArticle.imageUrl} 
+          alt={selectedArticle.title} 
+          className="modal-image"
+        />
+        <h2>{selectedArticle.title}</h2>
+        <p className="modal-date">📅 {new Date(selectedArticle.date).toLocaleDateString()}</p>
+        <div className="modal-text">
+          <p>{selectedArticle.content}</p>
         </div>
       </div>
     </div>

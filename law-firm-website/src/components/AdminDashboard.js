@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/AdminDashboard.css";
 import { 
   FiMail, 
@@ -9,17 +9,16 @@ import {
   FiAlertCircle, 
   FiLogOut, 
   FiChevronDown, 
-  FiChevronUp 
+  FiChevronUp,
+  FiPlusCircle 
 } from "react-icons/fi";
 
 const AdminDashboard = ({ user, onLogout }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  // const [expandedMessages, setExpandedMessages] = useState({});
   const navigate = useNavigate();
   const [expandedMessageId, setExpandedMessageId] = useState(null);
-
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -67,24 +66,19 @@ const AdminDashboard = ({ user, onLogout }) => {
     navigate("/admin/login");
   };
 
-  const toggleMessageExpansion = (messageId) => {
-    setExpandedMessages(prev => ({
-      ...prev,
-      [messageId]: !prev[messageId]
-    }));
-  };
+  if (loading) {
+    return (
+      <div className="dashboard-loading">
+        <div className="spinner"></div>
+        <p>Loading messages...</p>
+      </div>
+    );
+  }
 
-  if (loading) return (
-    <div className="dashboard-loading">
-      <div className="spinner"></div>
-      <p>Loading messages...</p>
-    </div>
-  );
+  const localUser = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="admin-dashboard-container">
-      
-
       <main className="dashboard-content">
         {error && (
           <div className="error-message">
@@ -97,25 +91,30 @@ const AdminDashboard = ({ user, onLogout }) => {
           <div className="section-header">
             <h2><FiMessageSquare className="section-icon" /> Contact Messages</h2>
             <p className="section-subtitle">Review and manage user inquiries</p>
+
             <header className="dashboard-header">
-  <div className="user-welcome">
-  </div>
-  
-  <div className="header-actions">
-    <div className="stats-card">
-      <FiMail className="stat-icon" />
-      <div>
-        <span className="stat-number">{messages.length}</span>
-        <span className="stat-label">Total Messages</span>
-      </div>
-    </div>
-    
-    <button className="logout-button" onClick={handleLogout}>
-      <FiLogOut className="logout-icon" />
-      Logout
-    </button>
-  </div>
-</header>
+              <div className="user-welcome"></div>
+              <div className="header-actions">
+                <div className="stats-card">
+                  <FiMail className="stat-icon" />
+                  <div>
+                    <span className="stat-number">{messages.length}</span>
+                    <span className="stat-label">Total Messages</span>
+                  </div>
+                </div>
+                <button
+    className="add-news-button"
+    onClick={() => navigate("/admin/news")}
+  >
+    <FiPlusCircle className="button-icon" />
+    Add News
+  </button>
+                <button className="logout-button" onClick={handleLogout}>
+                  <FiLogOut className="button-icon" />
+                  Logout
+                </button>
+              </div>
+            </header>
           </div>
 
           {messages.length === 0 ? (
@@ -137,26 +136,25 @@ const AdminDashboard = ({ user, onLogout }) => {
                   </tr>
                 </thead>
                 <tbody>
-                {messages.map((message) => (
-  <tr key={message.id}>
-    <td className="user-cell">
-      <span className="user-name">{message.fullName}</span>
-    </td>
-    <td className="email-cell">{message.email}</td>
-    <td className="phone-cell">{message.phoneNumber || "—"}</td> 
-    <td className="subject-cell">{message.subject}</td>
-    <td
-      className={`message-cell ${expandedMessageId === message.id ? "expanded" : ""}`}
-      onClick={() =>
-        setExpandedMessageId(expandedMessageId === message.id ? null : message.id)
-      }
-    >
-      {message.message}
-    </td>
-    <td className="date-cell">{formatDate(message.createdAt)}</td>
-  </tr>
-))}
-
+                  {messages.map((message) => (
+                    <tr key={message.id}>
+                      <td className="user-cell">
+                        <span className="user-name">{message.fullName}</span>
+                      </td>
+                      <td className="email-cell">{message.email}</td>
+                      <td className="phone-cell">{message.phoneNumber || "—"}</td>
+                      <td className="subject-cell">{message.subject}</td>
+                      <td
+                        className={`message-cell ${expandedMessageId === message.id ? "expanded" : ""}`}
+                        onClick={() =>
+                          setExpandedMessageId(expandedMessageId === message.id ? null : message.id)
+                        }
+                      >
+                        {message.message}
+                      </td>
+                      <td className="date-cell">{formatDate(message.createdAt)}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

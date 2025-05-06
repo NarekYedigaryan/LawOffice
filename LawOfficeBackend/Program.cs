@@ -58,7 +58,7 @@ builder.Services.AddCors(options =>
             .AllowCredentials());
 });
 
-// Swagger with JWT auth
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

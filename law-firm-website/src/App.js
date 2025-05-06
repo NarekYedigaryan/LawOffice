@@ -11,6 +11,8 @@ import Contact from "./components/Contact";
 import AllNews from "./components/AllNews";
 import Login from "./components/Login";
 import AdminDashboard from "./components/AdminDashboard";
+import AddNewsForm from "./components/AddNewsForm";
+import ProtectedRoute from "./components/ProtectedRoute";  // Import ProtectedRoute
 import "./styles.css";
 
 function App() {
@@ -78,15 +80,9 @@ function App() {
         <Route
           path="/news"
           element={
-            <>
-              <section id="HOME"><Home /></section>
-              <section id="ABOUT US"><About /></section>
-              <section id="AREAS OF PRACTICE"><PracticeAreas /></section>
-              <section id="OUR PROFESSIONALS"><Professionals /></section>
-              <section id="NEWS & ARTICLES" ref={newsSectionRef}><News /></section>
-              <section id="GALLERY"><Gallery /></section>
-              <section id="CONTACT US"><Contact /></section>
-            </>
+            <ProtectedRoute>
+              <News />
+            </ProtectedRoute>
           }
         />
 
@@ -118,6 +114,14 @@ function App() {
         />
 
         <Route path="*" element={<Navigate to="/" />} />
+        <Route
+          path="/admin/news"
+          element={
+            <ProtectedRoute>
+              <AddNewsForm />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
