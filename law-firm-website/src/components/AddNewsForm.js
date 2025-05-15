@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/AddNewsForm.css";
+import config from './config';
 
 const AddNewsForm = ({ onNewsAdded }) => {
   const [news, setNews] = useState({
@@ -30,7 +31,7 @@ const AddNewsForm = ({ onNewsAdded }) => {
   const token = localStorage.getItem("accessToken");
 
   try {
-    const response = await fetch("https://localhost:7235/api/news", {
+    const response = await fetch(`${config.BASE_URL}/api/news`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

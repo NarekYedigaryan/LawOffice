@@ -85,36 +85,33 @@ const AdminDashboard = ({ user, onLogout }) => {
           </div>
         )}
 
-        <section className="messages-section">
-          <div className="section-header">
+        <header className="dashboard-header">
+          <div className="header-title">
             <h2><FiMessageSquare className="section-icon" /> Contact Messages</h2>
-            <p className="section-subtitle">Review and manage user inquiries</p>
-
-            <header className="dashboard-header">
-              <div className="user-welcome"></div>
-              <div className="header-actions">
-                <div className="stats-card">
-                  <FiMail className="stat-icon" />
-                  <div>
-                    <span className="stat-number">{messages.length}</span>
-                    <span className="stat-label">Total Messages</span>
-                  </div>
-                </div>
-                <button
-    className="add-news-button"
-    onClick={() => navigate("/admin/news")}
-  >
-    <FiPlusCircle className="button-icon" />
-    Add News
-  </button>
-                <button className="logout-button" onClick={handleLogout}>
-                  <FiLogOut className="button-icon" />
-                  Logout
-                </button>
-              </div>
-            </header>
           </div>
+          <div className="header-actions">
+            <div className="stats-card">
+              <FiMail className="stat-icon" />
+              <div>
+                <span className="stat-number">{messages.length}</span>
+                <span className="stat-label">Total Messages</span>
+              </div>
+            </div>
+            <button
+              className="add-news-button"
+              onClick={() => navigate("/admin/news")}
+            >
+              <FiPlusCircle className="button-icon" />
+              Add News
+            </button>
+            <button className="logout-button" onClick={handleLogout}>
+              <FiLogOut className="button-icon" />
+              Logout
+            </button>
+          </div>
+        </header>
 
+        <section className="messages-section">
           {messages.length === 0 ? (
             <div className="empty-state">
               <FiMail className="empty-icon" />

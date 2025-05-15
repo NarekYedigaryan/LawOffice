@@ -1,110 +1,159 @@
+/* Base Styles */
 .add-news-container {
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-    background-color: #f5f5f5;
-    min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.add-news-form {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+  margin: 1rem 0;
+}
+
+.add-news-form h2 {
+  color: #b22222;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.add-news-form .form-group input,
+.add-news-form .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+/* Button Styles */
+button[type="submit"] {
+  background-color: #b22222;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  transition: background-color 0.3s;
+  margin-top: 0.5rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #9b1c1c;
+}
+
+button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Message Styles */
+.message {
+  padding: 0.75rem;
+  margin-bottom: 1.25rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Back Button */
+.back-button {
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .add-news-container {
+    padding: 0.5rem;
+    align-items: flex-start;
   }
-  
+
   .add-news-form {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 700px;
+    padding: 1rem;
+    margin: 0.5rem 0;
   }
-  
+
   .add-news-form h2 {
-    color: #b22222;
-    text-align: center;
-    margin-bottom: 25px;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
   }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .add-news-form .form-group input,
-  .add-news-form .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
+
+  .form-group input,
   .form-group textarea {
-    resize: vertical;
-    min-height: 100px;
+    padding: 0.65rem;
+    font-size: 0.95rem;
+    padding-left: 2rem;
   }
-  
-  button {
-    background-color: #b22222;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #9b1c1c;
-  }
-  
-  button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  .message {
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    text-align: center;
-  }
-  
-  .message.success {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
-  .message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
-  
-  @media (max-width: 768px) {
-    .add-news-container {
-      padding: 20px;
-    }
-    
-    .add-news-form {
-      padding: 20px;
-    }
+
+  button[type="submit"] {
+    padding: 0.8rem;
+    font-size: 0.95rem;
   }
 
   .back-button {
-    background-color: #ccc;
-    color: #333;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    cursor: pointer;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .add-news-form {
+    padding: 2rem;
   }
   
-  .back-button:hover {
-    background-color: #bbb;
+  .add-news-form h2 {
+    font-size: 1.75rem;
   }
-  
+}

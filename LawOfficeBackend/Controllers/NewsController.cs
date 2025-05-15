@@ -22,7 +22,7 @@ namespace LawOfficeBackend.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,SuperAdmin")]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> CreateNews([FromBody] NewsCreateDto dto)
         {
             if (dto == null)

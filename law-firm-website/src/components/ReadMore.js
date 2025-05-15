@@ -8,13 +8,24 @@ const ReadMore = ({ selectedArticle, closeModal }) => {
         <button className="close-button" onClick={closeModal}>
           &times;
         </button>
-        <img 
-          src={selectedArticle.imageUrl} 
-          alt={selectedArticle.title} 
-          className="modal-image"
-        />
-        <h2>{selectedArticle.title}</h2>
-        <p className="modal-date">📅 {new Date(selectedArticle.date).toLocaleDateString()}</p>
+        
+        <div className="modal-header">
+          <div className="modal-title-container">
+            <h2>{selectedArticle.title}</h2>
+          </div>
+          
+          <div className="modal-image-container">
+            <img 
+              src={selectedArticle.imageUrl} 
+              alt={selectedArticle.title} 
+              className="modal-image"
+            />
+            <p className="modal-date">
+              📅 {new Date(selectedArticle.date).toLocaleDateString()}
+            </p>
+          </div>
+        </div>
+        
         <div className="modal-text">
           <p>{selectedArticle.content}</p>
         </div>
@@ -22,5 +33,4 @@ const ReadMore = ({ selectedArticle, closeModal }) => {
     </div>
   );
 };
-
 export default ReadMore;

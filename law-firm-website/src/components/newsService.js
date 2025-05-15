@@ -1,3 +1,6 @@
+import config from './config';
+
+
 const parseJSON = async (response) => {
     const text = await response.text();
     return text ? JSON.parse(text) : [];
@@ -5,7 +8,7 @@ const parseJSON = async (response) => {
   
   export const getNews = async () => {
     try {
-      const response = await fetch('https://localhost:7235/api/news');
+      const response = await fetch("https://localhost:7235/api/news");
       if (!response.ok) {
         throw new Error('Failed to fetch news');
       }
@@ -18,7 +21,7 @@ const parseJSON = async (response) => {
   
   export const getActiveNews = async () => {
     try {
-      const response = await fetch('https://localhost:7235/api/news/active');
+      const response = await fetch("https://localhost:7235/api/news/active");
       if (!response.ok) {
         throw new Error('Failed to fetch active news');
       }
@@ -31,7 +34,7 @@ const parseJSON = async (response) => {
   
   export const getLatestNews = async () => {
     try {
-      const response = await fetch('https://localhost:7235/api/news/latest');
+      const response = await fetch("https://localhost:7235/api/news/latest");
       if (!response.ok) {
         throw new Error('Failed to fetch latest news');
       }
