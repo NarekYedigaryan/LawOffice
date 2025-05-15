@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import config from './config';
 
 const Login = ({ setAuth }) => {
   const [username, setUsername] = useState("");
@@ -8,6 +9,17 @@ const Login = ({ setAuth }) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("accessToken");
+
+    if (user?.role === "Admin" || user?.role === "SuperAdmin") {
+      if (token) {
+        navigate("/admin/news");
+      }
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,28 +36,32 @@ const Login = ({ setAuth }) => {
       });
 
       const data = await response.json();
-      console.log("JWT Token:", data);
+      
+      // Check for successful response
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
 
-      // Save tokens and user data
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
-      
-      const user = data.user || { username: data.username, role: data.role };
-      localStorage.setItem("user", JSON.stringify(user));
+      if (data.accessToken && data.refreshToken && data.user) {
+        // Store tokens and user data in localStorage
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
-      // Update authentication state
-      setAuth({
-        isAuthenticated: true,
-        user: user
-      });
+        // Set authentication state
+        setAuth({
+          isAuthenticated: true,
+          user: data.user,
+        });
 
-      // Redirect to dashboard
-      navigate("/admin/dashboard");
+        // Redirect to admin dashboard
+        navigate("/admin/dashboard");
+      } else {
+        throw new Error("Invalid response from the server");
+      }
     } catch (error) {
-      setError(error.message);
+      // Handle any errors
+      setError(error.message || "Something went wrong");
     } finally {
       setIsLoading(false);
     }

@@ -36,58 +36,48 @@ namespace LawOfficeBackend.Services
 
             try
             {
-                // Log the incoming request for debugging purposes
                 _logger.LogInformation("Login attempt for user: {Username}", loginRequest.Username);
 
-                // Fetch the user from the database
                 var user = await _context.Users
                     .AsNoTracking()
                     .FirstOrDefaultAsync(u => u.Username == loginRequest.Username);
 
                 if (user == null)
                 {
-                    // Log that the user was not found
                     _logger.LogWarning("User not found: {Username}", loginRequest.Username);
                     return null;
                 }
 
-                // Check if the password hash is set
                 if (string.IsNullOrEmpty(user.PasswordHash))
                 {
                     _logger.LogWarning("Password hash not set for user: {Username}", loginRequest.Username);
                     throw new InvalidOperationException("User password hash is not set");
                 }
 
-                // Check if the password matches the hash
                 if (!VerifyPassword(loginRequest.Password, user.PasswordHash))
                 {
                     _logger.LogWarning("Password mismatch for user: {Username}", loginRequest.Username);
                     return null;
                 }
 
-                // Check if the account is active
                 if (!user.IsActive)
                 {
                     _logger.LogWarning("User account is deactivated: {Username}", loginRequest.Username);
                     throw new InvalidOperationException("User account is deactivated");
                 }
 
-                // Generate the access and refresh tokens
                 var accessToken = GenerateAccessToken(user);
                 var refreshToken = GenerateRefreshToken();
 
-                // Only update the database if token generation succeeded
                 user.LastLogin = DateTime.UtcNow;
                 user.RefreshToken = refreshToken;
                 user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
 
-                // Log token generation success
                 _logger.LogInformation("Tokens generated successfully for user: {Username}", loginRequest.Username);
 
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
 
-                // Return the token model
                 return new TokenApiModel
                 {
                     AccessToken = accessToken,
@@ -96,7 +86,6 @@ namespace LawOfficeBackend.Services
             }
             catch (Exception ex)
             {
-                // Log the exception details for troubleshooting
                 _logger.LogError(ex, "Authentication failed for user: {Username}", loginRequest.Username);
                 throw new Exception("Authentication failed", ex);
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LawOfficeBackend.Controllers
 {
-    [Authorize(Roles = "SuperAdmin,Admin")]
+    //[Authorize(Roles = "SuperAdmin,Admin")]
     [Route("api/admin/[controller]")]
     [ApiController]
     public class MessagesController : ControllerBase
