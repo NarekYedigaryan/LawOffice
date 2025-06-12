@@ -12,7 +12,6 @@ namespace LawOfficeBackend.Controllers
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
-
         public ContactController(IContactService contactService)
         {
             _contactService = contactService;

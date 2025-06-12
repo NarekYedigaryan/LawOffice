@@ -33,7 +33,6 @@ namespace LawOfficeBackend.Controllers
                 if (token == null)
                     return Unauthorized(new { message = "Invalid username or password" });
 
-                // Add "Bearer " prefix to access token
                 return Ok(new
                 {
                     accessToken = token.AccessToken,

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Contact.css";
+import config from './config';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -56,6 +57,7 @@ const Contact = () => {
     }
 
     try {
+      console.log("${config.BASE_URL}");
       const response = await fetch("https://localhost:7235/api/contact", {
         method: "POST",
         headers: { 

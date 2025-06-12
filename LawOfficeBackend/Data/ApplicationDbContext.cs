@@ -12,7 +12,9 @@ namespace LawOfficeBackend.Data
         }
 
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<User> Users { get; set; } // Add this line
+        public DbSet<User> Users { get; set; }
+        public DbSet<News> News { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
